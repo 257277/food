@@ -48,8 +48,10 @@ restRoute.delete("/api/restaurants/:resid/menu/:menuid", async (req, res) => {
     let resid = req.params.resid;
     let menuid = req.params.menuid;
     try {
-        let rest = await RestaurantModel.find({ "_id": id });
-        rest = rest[0].menu.slice(menuid, 1);
+        let rest = await RestaurantModel.find({ "_id": resid });
+        console.log("res", rest);
+        rest[0].menu = rest[0].menu.splice(menuid, 1);
+        console.log("res1", rest);
         let newmenu = await RestaurantModel.findByIdAndUpdate({ "_id": resid }, rest[0]);
         res.status(202).send("menu item is deleted successfully");
     }

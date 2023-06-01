@@ -13,8 +13,9 @@ orderRoute.post("/api/orders", async (req, res) => {
 })
 
 
-orderRoute.get("api/orders/:id", async (req, res) => {
+orderRoute.get("/api/orders/:id", async (req, res) => {
     let id = req.params.id;
+    console.log(id);
     try {
         let data = await OrderModel.find({ "_id": id });
         res.status(200).send(data);
@@ -24,8 +25,9 @@ orderRoute.get("api/orders/:id", async (req, res) => {
     }
 })
 
-orderRoute.patch("api/orders/:id", async (req, res) => {
+orderRoute.patch("/api/orders/:id", async (req, res) => {
     let status = req.body.status;
+    let id = req.params.id;
     try {
         let data = await OrderModel.findByIdAndUpdate({ "_id": id }, { "status": status })
         res.status(204).send("Status is updated");
